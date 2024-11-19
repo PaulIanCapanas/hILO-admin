@@ -8,6 +8,9 @@ export default function Sidebar() {
         <h1 className="text-2xl text-white text-center my-6">hILO Admin</h1>
         <ul>
           <li className="text-center my-6 hover:bg-slate-400">
+            <Link href="/">Members</Link>
+          </li>
+          <li className="text-center my-6 hover:bg-slate-400">
             <Link href="/analytics">Analytics</Link>
           </li>
           <li className="text-center my-6 hover:bg-slate-400">
