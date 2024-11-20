@@ -1,17 +1,11 @@
-import { addDoc, collection, CollectionReference } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { firestore } from "@/firebase/firebaseConfig";
 
 export default async function uploadDocument(
   collectionName: string,
-  data: object,
-  subcollection?: string
+  data: object
 ): Promise<string> {
-  let collectionRef: CollectionReference;
-  if (!subcollection) {
-    collectionRef = collection(firestore, collectionName);
-  } else {
-    collectionRef = collection(firestore, subcollection, collectionName);
-  }
+  const collectionRef = collection(firestore, collectionName);
 
   return addDoc(collectionRef, data)
     .then((docRef) => {
