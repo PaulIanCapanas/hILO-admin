@@ -23,10 +23,6 @@ export default function CreateColor() {
     );
   }, []);
 
-  useEffect(() => {
-    console.log(brand);
-  }, [brand]);
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -73,6 +69,7 @@ export default function CreateColor() {
         value={brand}
         onChange={(e) => setBrand(e.target.value)}
       >
+        <option value="" className="hidden" disabled></option>
         {queriedBrands.map((brand) => (
           <option key={brand.id} value={brand.id}>
             {brand.name}
