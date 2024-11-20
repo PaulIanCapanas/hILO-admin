@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import uploadDocument from "@/helpers/firebase/uploadDocument";
+import { Collection } from "@/enums/collection";
 
 export default function CreateBrand() {
   const [name, setName] = useState<string>("");
@@ -10,7 +11,7 @@ export default function CreateBrand() {
     e.preventDefault();
 
     try {
-      await uploadDocument("brands", {
+      await uploadDocument(Collection.BRANDS, {
         name: name,
       });
       console.log("Successfully uploaded brand");
