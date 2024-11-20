@@ -1,12 +1,9 @@
 "use client";
 
 import React, { FormEvent, useEffect, useState } from "react";
-import uploadDocument from "@/helpers/firebase/uploadDocument";
 import queryAllDocument from "@/helpers/firebase/queryAllDocument";
 import { Brand } from "@/types/brands";
 import { Collection } from "@/enums/collection";
-import { firestore } from "@/firebase/firebaseConfig";
-import { doc } from "firebase/firestore";
 import uploadDocumentToSubCol from "@/helpers/firebase/uploadDocumentToSubCol";
 import { SubCollection } from "@/enums/subcollection";
 
