@@ -6,12 +6,16 @@ import { Brand } from "@/types/brands";
 import { Collection } from "@/enums/collection";
 import uploadDocumentToSubCol from "@/helpers/firebase/uploadDocumentToSubCol";
 import { SubCollection } from "@/enums/subcollection";
+import {ColorPicker, useColor} from "react-color-palette";
+import "react-color-palette/css";
+
+
 
 export default function CreateColor() {
   const [name, setName] = useState<string>("");
-  const [hex, setHex] = useState<string>("");
+  const [hex, setHex] = useColor("hex")
   const [code, setCode] = useState<string>("");
-  const [brand, setBrand] = useState<string>("");
+  const [brand, setBrand] = useState<string>("Brands");
   const [queriedBrands, setQueriedBrands] = useState<Brand[]>([]);
 
   useEffect(() => {
@@ -37,7 +41,6 @@ export default function CreateColor() {
       console.log("Successfully uploaded color to database");
 
       setName("");
-      setHex("");
       setCode("");
     } catch (error) {
       console.error("Failed to create color", error);
@@ -60,21 +63,22 @@ export default function CreateColor() {
       </div>
       <div className="space-y-3 pb-4">
         <p className="text-black text-lg">Brand:</p>
+        <select
+          className="h-8 w-2/4 border border-black rounded-md px-4 text-black"
+          value={ brand }
+          onChange={ (e) => setBrand(e.target.value) }
+        >
+          <option value="" className="hidden" disabled></option>
+          { queriedBrands.map((brand) => (
+            <option key={ brand.id } value={ brand.id }>
+              { brand.name }
+            </option>
+          )) }
+        </select>
       </div>
-      <select
-        className="h-8 w-2/4 border border-black rounded-md px-4 text-black"
-        value={brand}
-        onChange={(e) => setBrand(e.target.value)}
-      >
-        <option value="" className="hidden" disabled></option>
-        {queriedBrands.map((brand) => (
-          <option key={brand.id} value={brand.id}>
-            {brand.name}
-          </option>
-        ))}
-      </select>
-      <div className="space-y-4 pb-4">
+      <div className=" pb-4">
         <p className="text-black text-lg">Hex Code:</p>
+          <ColorPicker height={300} color={ hex } onChange={ setHex }/>
       </div>
       <div className="space-y-3 pb-8">
         <p className="text-black text-lg">Code:</p>
