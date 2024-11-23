@@ -1,10 +1,11 @@
+"use client";
 
 import React, { useState } from "react";
 import uploadDocument from "@/helpers/firebase/uploadDocument";
 import { Collection } from "@/enums/collection";
 
 export default function CreateBrand() {
-  const [name, setName] = useState<string>('');
+  const [name, setName] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -15,7 +16,7 @@ export default function CreateBrand() {
       });
       console.log("Successfully uploaded brand");
 
-      setName('');
+      setName("");
     } catch (error) {
       console.error(error);
     }
