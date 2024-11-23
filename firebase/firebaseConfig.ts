@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getFirestore } from "firebase/firestore"
-import dotenv from "dotenv"
+import { initializeApp } from 'firebase/app';
+// import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from 'firebase/firestore';
+import dotenv from 'dotenv';
 
 dotenv.config();
 // TODO: Add SDKs for Firebase products that you want to use
@@ -23,4 +23,4 @@ const firebaseConfig = {
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const firestore = getFirestore(app);
-const analytics = getAnalytics(app);
+// const analytics = getAnalytics(app);

@@ -36,9 +36,9 @@ export default function CreateColor() {
       );
       console.log("Successfully uploaded color to database");
 
-      setName("");
-      setHex("");
-      setCode("");
+      setName('');
+      setHex('');
+      setCode('');
     } catch (error) {
       console.error("Failed to create color", error);
     }
@@ -50,7 +50,7 @@ export default function CreateColor() {
       className="w-1/2 px-10 py-12 border border-black shadow-md"
     >
       <div className="space-y-3 pb-4">
-        <p className="text-black text-lg">Color:</p>
+        <p className="text-lg text-black">Color:</p>
         <input
           className="h-8 w-2/4 border border-black rounded-md px-4 text-black"
           placeholder="Purple Haze"
@@ -74,10 +74,10 @@ export default function CreateColor() {
         ))}
       </select>
       <div className="space-y-4 pb-4">
-        <p className="text-black text-lg">Hex Code:</p>
+        <p className="text-lg text-black">Hex Code:</p>
       </div>
       <div className="space-y-3 pb-8">
-        <p className="text-black text-lg">Code:</p>
+        <p className="text-lg text-black">Code:</p>
         <input
           className="h-8 w-2/4 border border-black rounded-md px-4 text-black"
           placeholder="201"
