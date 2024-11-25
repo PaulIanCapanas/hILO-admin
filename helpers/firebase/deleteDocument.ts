@@ -1,5 +1,5 @@
-import { deleteDoc, doc } from 'firebase/firestore';
-import { firestore } from '@/firebase/firebaseConfig';
+import { deleteDoc, doc } from "firebase/firestore";
+import { firestore } from "@/firebase/firebaseConfig";
 export default async function deleteDocument(
   collectionName: string,
   documentId: string
@@ -8,6 +8,6 @@ export default async function deleteDocument(
     const documentRef = doc(firestore, collectionName, documentId);
     await deleteDoc(documentRef);
   } catch (error) {
-    console.error('Error deleting document: ', error);
+    console.error("Error deleting document: ", error);
   }
 }

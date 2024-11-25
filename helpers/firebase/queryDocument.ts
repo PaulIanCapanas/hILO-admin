@@ -1,5 +1,5 @@
-import { collection, query, where, getDocs } from 'firebase/firestore';
-import { firestore } from '@/firebase/firebaseConfig';
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { firestore } from "@/firebase/firebaseConfig";
 
 export default async function queryDocument(
   collectionName: string,
@@ -10,7 +10,7 @@ export default async function queryDocument(
 
   const queryParameters = query(
     collectionRef,
-    where(fieldName, '==', searchValue)
+    where(fieldName, "==", searchValue)
   );
 
   const querySnapshot = await getDocs(queryParameters);
@@ -19,7 +19,7 @@ export default async function queryDocument(
     const data = querySnapshot.docs.map((doc) => doc.data());
     return data;
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error("Error fetching data:", error);
     return [];
   }
 }
