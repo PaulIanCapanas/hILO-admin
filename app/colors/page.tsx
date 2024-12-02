@@ -19,8 +19,8 @@ export default function ColorsPage() {
             <CreateBrand />
           </div>
         </div>
-        <div className="flex flex-col justify-center items-center">
-          <h2 className="text-lg font-semibold mb-2 text-center">Brand Cards</h2>
+        <div className="flex flex-col">
+          <h2 className="text-2xl font-semibold mb-2">Brand Cards</h2>
             <BrandCard />
         </div>
       </div>

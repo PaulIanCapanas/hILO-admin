@@ -11,7 +11,11 @@ export default {
   	extend: {
   		colors: {
   			background: 'var(--background)',
-  			foreground: 'var(--foreground)'
+  			foreground: 'var(--foreground)',
+        primary: '#E8DEF8',
+        secondary: '#4A4459',
+        tertiary: '#65558F',
+        button: '#F5F5F5'
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

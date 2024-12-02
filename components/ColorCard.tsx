@@ -46,7 +46,7 @@ export default function ColorCard({ brandId }: ColorCardProps) {
     if (typeof color.hex === "object" && color.hex?.hex) {
       return color.hex.hex;
     }
-    return "#000000";
+    return "#000000"
   };
 
   const copyToClipboard = async (hexValue: string) => {
@@ -79,7 +79,7 @@ export default function ColorCard({ brandId }: ColorCardProps) {
   }
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
+    <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-10 gap-3">
       {colors.map((color) => {
         const hexValue = getHexValue(color);
         const isCopied = copiedColor === hexValue;
