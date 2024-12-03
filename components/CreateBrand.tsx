@@ -4,7 +4,12 @@ import React, { useState } from "react";
 import uploadDocument from "@/helpers/firebase/uploadDocument";
 import { Collection } from "@/enums/collection";
 
-export default function CreateBrand() {
+interface CreateBrandProps {
+  setRecentlyCreatedBrands: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function CreateBrand(props: CreateBrandProps) {
+  const { setRecentlyCreatedBrands } = props;
   const [name, setName] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -16,6 +21,7 @@ export default function CreateBrand() {
       });
       console.log("Successfully uploaded brand");
 
+      setRecentlyCreatedBrands(true);
       setName("");
     } catch (error) {
       console.error(error);
