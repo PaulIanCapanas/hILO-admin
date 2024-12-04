@@ -10,7 +10,7 @@ import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/css";
 
 interface CreateColorProps {
-  recentlyCreatedBrands: boolean;
+  recentlyCreatedBrands?: boolean;
 }
 
 export default function CreateColor(props: CreateColorProps) {
