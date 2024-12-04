@@ -1,10 +1,13 @@
-import React from "react"
+"use client";
+import React, { useState } from "react";
 import Layout from "@/components/Layout"
 import CreateColor from "@/components/CreateColor"
 import CreateBrand from "@/components/CreateBrand"
 import BrandCard from "@/components/BrandCard"
 
 export default function ColorsPage() {
+  const [recentlyCreatedBrands, setRecentlyCreatedBrands] =
+    useState<boolean>(false);
   return (
     <Layout>
       <div className="container mx-auto px-4 py-6">
@@ -12,11 +15,11 @@ export default function ColorsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
           <div className="bg-card rounded-lg shadow-sm p-4">
             <h2 className="text-lg font-semibold mb-2">Create Color</h2>
-            <CreateColor />
+            <CreateColor recentlyCreatedBrands={recentlyCreatedBrands} />
           </div>
           <div className="bg-card rounded-lg shadow-sm p-4">
             <h2 className="text-lg font-semibold mb-2">Create Brand</h2>
-            <CreateBrand />
+            <CreateBrand setRecentlyCreatedBrands={setRecentlyCreatedBrands} />
           </div>
         </div>
         <div className="flex flex-col">
@@ -25,6 +28,6 @@ export default function ColorsPage() {
         </div>
       </div>
     </Layout>
-  )
+  );
 }
 
