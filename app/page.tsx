@@ -1,12 +1,12 @@
+import Login from "@/components/Login";
 import React from "react";
-import Layout from "@/components/Layout";
 
-export default function MembersPage() {
+export default function LoginPage() {
   return (
-    <Layout>
-      <h1 className="text-4xl text-center text-black">
-        Members are here
-      </h1>
-    </Layout>
+    <div className="flex min-h-screen">
+      <main className="flex-1 bg-purple-700 p-4 items-center flex flex-col justify-between">
+        <Login />
+      </main>
+    </div>
   );
 }
