@@ -1,6 +1,12 @@
 'use client'
 
 import React, { useState, useEffect } from "react"
+import queryAllDocument from "@/helpers/firebase/queryAllDocument"
+
+interface User {
+  id: string,
+  type?: string
+}
 
 export default function UserPercentage () {
   const [totalUsers, setTotalUsers] = useState<number>(0)
@@ -9,24 +15,41 @@ export default function UserPercentage () {
   const [others, setOthers] = useState<number>(0)
 
   useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const users: User[] = await queryAllDocument("users");
+        const designersCount = users.filter(user => user.type === "designer").length;
+        const weaversCount = users.filter(user => user.type === "weaver").length;
+        const othersCount = users.filter(user => user.type === "other").length;
 
-    const mockUsers = [
-      { id: 1, type: "designer" },
-      { id: 2, type: "weaver" },
-      { id: 3, type: "designer" },
-      { id: 4, type: "other" },
-      { id: 5, type: "weaver" },
-      { id: 6, type: "designer" },
-    ];
+        setTotalUsers(users.length);
+        setDesigners(designersCount);
+        setWeavers(weaversCount);
+        setOthers(othersCount);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
 
-    const designersCount = mockUsers.filter(user => user.type === "designer").length;
-    const weaversCount = mockUsers.filter(user => user.type === "weaver").length;
-    const othersCount = mockUsers.filter(user => user.type === "other").length;
+    fetchUserData();
 
-    setTotalUsers(mockUsers.length);
-    setDesigners(designersCount);
-    setWeavers(weaversCount);
-    setOthers(othersCount);
+  //   const mockUsers = [
+  //     { id: 1, type: "designer" },
+  //     { id: 2, type: "weaver" },
+  //     { id: 3, type: "designer" },
+  //     { id: 4, type: "other" },
+  //     { id: 5, type: "weaver" },
+  //     { id: 6, type: "designer" },
+  //   ];
+
+  //   const designersCount = mockUsers.filter(user => user.type === "designer").length;
+  //   const weaversCount = mockUsers.filter(user => user.type === "weaver").length;
+  //   const othersCount = mockUsers.filter(user => user.type === "other").length;
+
+  //   setTotalUsers(mockUsers.length);
+  //   setDesigners(designersCount);
+  //   setWeavers(weaversCount);
+  //   setOthers(othersCount);
   }, []);
 
   const calculatePercentage = (count: number) => (totalUsers > 0 ? ((count / totalUsers) * 100).toFixed(2) : 0);
