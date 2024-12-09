@@ -6,20 +6,23 @@ import { Collection } from "@/enums/collection";
 
 interface CreateBrandProps {
   setRecentlyCreatedBrands: React.Dispatch<React.SetStateAction<boolean>>;
+  onCreateBrand: (newBrand: {id: string; name: string}) => void
 }
 
 export default function CreateBrand(props: CreateBrandProps) {
-  const { setRecentlyCreatedBrands } = props;
+  const { setRecentlyCreatedBrands, onCreateBrand } = props;
   const [name, setName] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      await uploadDocument(Collection.BRANDS, {
+      const newBrandId = await uploadDocument(Collection.BRANDS, {
         name: name,
       });
       console.log("Successfully uploaded brand");
+
+      onCreateBrand({ id: newBrandId, name });
 
       setRecentlyCreatedBrands(true);
       setName("");
