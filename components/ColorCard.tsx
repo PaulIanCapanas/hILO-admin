@@ -4,10 +4,11 @@ import React, { useEffect, useState, useCallback } from "react";
 import queryAllDocument from "@/helpers/firebase/queryAllDocument";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
-import { AlertCircle, Copy, Check } from 'lucide-react';
+import { AlertCircle, Copy, Check, Trash } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 import { ColorCardProps, Color } from "@/types/brands";
 import { cn } from "@/lib/utils";
+import deleteDocument from "@/helpers/firebase/deleteDocument";
 
 export default function ColorCard({ brandId }: ColorCardProps) {
   const [loading, setLoading] = useState(true);
@@ -46,7 +47,7 @@ export default function ColorCard({ brandId }: ColorCardProps) {
     if (typeof color.hex === "object" && color.hex?.hex) {
       return color.hex.hex;
     }
-    return "#000000"
+    return "#000000";
   };
 
   const copyToClipboard = async (hexValue: string) => {
@@ -56,6 +57,16 @@ export default function ColorCard({ brandId }: ColorCardProps) {
       setTimeout(() => setCopiedColor(null), 2000);
     } catch (err) {
       console.error("Failed to copy:", err);
+    }
+  };
+
+  const handleDelete = async (colorId: string) => {
+    try {
+      await deleteDocument(`brands/${brandId}/colors`, colorId);
+      console.log('Color card deleted successfully');
+      setColors((prevColors) => prevColors.filter(color => color.id !== colorId));
+    } catch (error) {
+      console.error('Error deleting color card:', error);
     }
   };
 
@@ -121,6 +132,12 @@ export default function ColorCard({ brandId }: ColorCardProps) {
                     {hexValue}
                   </p>
                 </div>
+                <button
+                  onClick={() => handleDelete(color.id)}
+                  className="opacity-0 group-hover:opacity-100 transition-opacity mt-2"
+                >
+                  <Trash className="h-4 w-4 text-red-500" />
+                </button>
               </div>
             </CardContent>
           </Card>
@@ -129,4 +146,3 @@ export default function ColorCard({ brandId }: ColorCardProps) {
     </div>
   );
 }
-
