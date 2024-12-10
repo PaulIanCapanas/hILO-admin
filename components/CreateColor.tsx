@@ -11,10 +11,11 @@ import "react-color-palette/css";
 
 interface CreateColorProps {
   recentlyCreatedBrands?: boolean;
+  onCreateColor?: () => void;
 }
 
 export default function CreateColor(props: CreateColorProps) {
-  const { recentlyCreatedBrands } = props;
+  const { recentlyCreatedBrands, onCreateColor } = props;
   const [name, setName] = useState<string>("");
   const [hex, setHex] = useColor("hex");
   const [code, setCode] = useState<string>("");
@@ -47,6 +48,9 @@ export default function CreateColor(props: CreateColorProps) {
 
       setName("");
       setCode("");
+      if (onCreateColor) {
+        onCreateColor();
+      }
     } catch (error) {
       console.error("Failed to create color", error);
     }

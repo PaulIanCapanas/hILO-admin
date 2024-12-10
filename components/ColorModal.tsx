@@ -30,6 +30,10 @@ export default function ColorModal ({
     setIsModalOpen(!isModalOpen)
   }
 
+  const handleCreateColor = () => {
+    setIsModalOpen(false)
+  }
+
   return (
     <Dialog
       open={isOpen}
@@ -68,9 +72,16 @@ export default function ColorModal ({
         </DialogHeader>
         <div className='flex-1 overflow-y-auto'>
           {isModalOpen ? (
-            <CreateColor />
+            <CreateColor
+              onCreateColor={handleCreateColor}
+
+            />
           ) : (
-            brand && <ColorCard brandId={brand.id} />
+            brand && (
+              <ColorCard
+                brandId={brand.id}
+              />
+            )
           )}
         </div>
       </DialogContent>
