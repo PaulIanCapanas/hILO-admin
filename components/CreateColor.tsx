@@ -53,51 +53,102 @@ export default function CreateColor(props: CreateColorProps) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-1/2 px-10 py-12 border border-black shadow-md"
-    >
-      <div className="space-y-3 pb-4">
-        <p className="text-black text-lg">Color:</p>
-        <input
-          className="h-8 w-2/4 border border-black rounded-md px-4 text-black"
-          placeholder="Purple Haze"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </div>
-      <div className="space-y-3 pb-4">
-        <p className="text-black text-lg">Brand:</p>
-        <select
-          className="h-8 w-2/4 border border-black rounded-md px-4 text-black"
-          value={brand}
-          onChange={(e) => setBrand(e.target.value)}
-          disabled={fetchingBrands}
-        >
-          <option value="" className="hidden" disabled></option>
-          {queriedBrands.map((brand) => (
-            <option key={brand.id} value={brand.id}>
-              {brand.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className=" pb-4">
-        <p className="text-black text-lg">Hex Code:</p>
-        <ColorPicker height={300} color={hex} onChange={setHex} />
-      </div>
-      <div className="space-y-3 pb-8">
-        <p className="text-black text-lg">Code:</p>
-        <input
-          className="h-8 w-2/4 border border-black rounded-md px-4 text-black"
-          placeholder="201"
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-        />
-      </div>
-      <button className="h-10 w-24 bg-purple-500 rounded-md text-white">
-        Submit
-      </button>
-    </form>
+    // <form
+    //   onSubmit={handleSubmit}
+    //   className="w-1/2 px-10 py-12 border border-black shadow-md"
+    // >
+    //   <div className="space-y-3 pb-4">
+    //     <p className="text-black text-lg">Color:</p>
+    //     <input
+    //       className="h-8 w-2/4 border border-black rounded-md px-4 text-black"
+    //       placeholder="Purple Haze"
+    //       value={name}
+    //       onChange={(e) => setName(e.target.value)}
+    //     />
+    //   </div>
+    //   <div className="space-y-3 pb-4">
+    //     <p className="text-black text-lg">Brand:</p>
+    //     <select
+    //       className="h-8 w-2/4 border border-black rounded-md px-4 text-black"
+    //       value={brand}
+    //       onChange={(e) => setBrand(e.target.value)}
+    //       disabled={fetchingBrands}
+    //     >
+    //       <option value="" className="hidden" disabled></option>
+    //       {queriedBrands.map((brand) => (
+    //         <option key={brand.id} value={brand.id}>
+    //           {brand.name}
+    //         </option>
+    //       ))}
+    //     </select>
+    //   </div>
+    //   <div className=" pb-4">
+    //     <p className="text-black text-lg">Hex Code:</p>
+    //     <ColorPicker height={300} color={hex} onChange={setHex} />
+    //   </div>
+    //   <div className="space-y-3 pb-8">
+    //     <p className="text-black text-lg">Code:</p>
+    //     <input
+    //       className="h-8 w-2/4 border border-black rounded-md px-4 text-black"
+    //       placeholder="201"
+    //       value={code}
+    //       onChange={(e) => setCode(e.target.value)}
+    //     />
+    //   </div>
+    //   <button className="h-10 w-24 bg-purple-500 rounded-md text-white">
+    //     Submit
+    //   </button>
+    // </form>
+
+      <div className="flex flex-col items-center">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-md px-10 py-12 bg-white border-black shadow-md rounded-md"
+      >
+        <div className="space-y-3 pb-4">
+          <p className="text-black text-lg">Color:</p>
+          <input
+            className="h-8 w-full border border-black rounded-md px-4 text-black"
+            placeholder="Purple Haze"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className="space-y-3 pb-4">
+          <p className="text-black text-lg">Brand:</p>
+          <select
+            className="h-8 w-full border border-black rounded-md px-4 text-black"
+            value={brand}
+            onChange={(e) => setBrand(e.target.value)}
+            disabled={fetchingBrands}
+          >
+            <option value="" className="hidden" disabled></option>
+            {queriedBrands.map((brand) => (
+              <option key={brand.id} value={brand.id}>
+                {brand.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="pb-4">
+          <p className="text-black text-lg">Hex Code:</p>
+          <ColorPicker height={300} color={hex} onChange={setHex} />
+        </div>
+        <div className="space-y-3 pb-8">
+          <p className="text-black text-lg">Code:</p>
+          <input
+            className="h-8 w-full border border-black rounded-md px-4 text-black"
+            placeholder="201"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+          />
+        </div>
+        <div className="flex justify-center">
+          <button className="h-10 w-24 bg-purple-500 rounded-md text-white">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
