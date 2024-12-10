@@ -5,7 +5,7 @@ import queryAllDocument from '@/helpers/firebase/queryAllDocument'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Skeleton } from '@/components/ui/skeleton'
-import { AlertCircle, Palette } from 'lucide-react'
+import { AlertCircle, Palette, Trash } from "lucide-react"
 import { Brand } from '@/types/brands'
 import { Button } from '@/components/ui/button'
 import ColorModal from './ColorModal'
@@ -13,6 +13,7 @@ import ColorModal from './ColorModal'
 interface BrandCardProps {
   initialBrands?: Brand[]
 }
+import deleteDocument from "@/helpers/firebase/deleteDocument";
 
 export default function BrandCard ({ initialBrands = [] }: BrandCardProps) {
   const [loading, setLoading] = useState(true)
@@ -55,9 +56,19 @@ export default function BrandCard ({ initialBrands = [] }: BrandCardProps) {
   }, [initialBrands])
 
   const openColorModal = (brand: Brand) => {
-    setSelectedBrand(brand)
-    setIsModalOpen(true)
-  }
+    setSelectedBrand(brand);
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteDocument("brands", id);
+      console.log("Brand deleted successfully");
+      fetchBrands();
+    } catch (err) {
+      setError("Error deleting brand: " + (err as Error).message);
+    }
+  };
 
   if (loading) {
     return (
@@ -92,19 +103,27 @@ export default function BrandCard ({ initialBrands = [] }: BrandCardProps) {
         {brands.map(brand => (
           <Card
             key={brand.id}
-            className='relative overflow-hidden transition-all hover:shadow-md bg-primary border-b border-secondary'
+            className="relative overflow-hidden transition-all hover:shadow-md bg-primary border-b border-secondary "
           >
-            <CardHeader className='pb-1 border-b border-secondary'>
-              <CardTitle className='flex items-center gap-1 text-lg text-secondary'>
-                <Palette className='h-4 w-4' />
-                {brand.name}
+            <CardHeader className="pb-1 border-b border-secondary">
+              <CardTitle className="flex items-center justify-between px-4 py-0">
+                <div className="flex items-center">
+                  <Palette className="h-4 w-4" />
+                  <span className="ml-2">{brand.name}</span>
+                </div>
+                <Button
+                  onClick={() => handleDelete(brand.id)}
+                  className="bg-transparent hover:bg-transparent p-0"
+                >
+                  <Trash className="text-red-500 h-4 w-4" />
+                </Button>
               </CardTitle>
             </CardHeader>
             <CardContent className='p-10'>
               <Button
                 onClick={() => openColorModal(brand)}
-                className='w-full text-secondary bg-button hover hover:bg-white'
-                variant='outline'
+                className="w-full text-secondary bg-button hover:bg-white"
+                variant="outline"
               >
                 View Colors
               </Button>
