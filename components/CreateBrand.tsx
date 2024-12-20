@@ -1,25 +1,32 @@
 "use client";
 
 import React, { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import uploadDocument from "@/helpers/firebase/uploadDocument";
 import { Collection } from "@/enums/collection";
 
 interface CreateBrandProps {
   setRecentlyCreatedBrands: React.Dispatch<React.SetStateAction<boolean>>;
+  onCreateBrand: (newBrand: {id: string; name: string}) => void
 }
 
 export default function CreateBrand(props: CreateBrandProps) {
-  const { setRecentlyCreatedBrands } = props;
+  const { setRecentlyCreatedBrands, onCreateBrand } = props;
   const [name, setName] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      await uploadDocument(Collection.BRANDS, {
+      const newBrandId = await uploadDocument(Collection.BRANDS, {
         name: name,
       });
       console.log("Successfully uploaded brand");
+
+      onCreateBrand({ id: newBrandId, name });
 
       setRecentlyCreatedBrands(true);
       setName("");
@@ -29,22 +36,27 @@ export default function CreateBrand(props: CreateBrandProps) {
   };
 
   return (
-    <form
-      className="w-1/2 px-10 py-12 border border-black shadow-md"
-      onSubmit={handleSubmit}
-    >
-      <div className="space-y-2 pb-6">
-        <p className="text-lg text-black">Brand Name:</p>
-        <input
-          className="h-10 w-2/4 border border-black rounded-md px-3 text-black"
-          placeholder="Apple"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </div>
-      <button className="h-10 w-24 bg-blue-500 rounded-md text-white">
-        Submit
-      </button>
-    </form>
+      <Card className="w-full max-w-md bg-primary">
+        <CardHeader>
+          <CardTitle>Create New Brand</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="brandName">Brand Name</Label>
+              <Input
+                id="brandName"
+                placeholder="Apple"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+            <Button type="submit" className="w-full bg-button text-black hover:bg-white">
+              Submit
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
   );
 }
