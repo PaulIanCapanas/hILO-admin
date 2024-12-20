@@ -18,7 +18,7 @@ export default function Login() {
       alert("User has signed in!");
       router.replace(`/${Routes.MEMBERS}`);
     } catch (error) {
-      alert("User sign in has failed.");
+      alert(`User sign-in has failed: ${error}`);
     }
   }
 
