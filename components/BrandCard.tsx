@@ -22,24 +22,25 @@ export default function BrandCard ({ initialBrands = [] }: BrandCardProps) {
   const [selectedBrand, setSelectedBrand] = useState<Brand | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  useEffect(() => {
-    const fetchBrands = async () => {
-      setLoading(true)
-      setError(null)
+  const fetchBrands = async () => {
+    setLoading(true)
+    setError(null)
 
-      try {
-        const fetchedBrands = (await queryAllDocument('brands')) as Brand[]
-        setBrands(fetchedBrands)
+    try {
+      const fetchedBrands = (await queryAllDocument('brands')) as Brand[]
+      setBrands(fetchedBrands)
 
-        if (fetchedBrands.length === 0) {
-          setError('No brands found.')
-        }
-      } catch (err) {
-        setError('Error fetching brands: ' + (err as Error).message)
-      } finally {
-        setLoading(false)
+      if (fetchedBrands.length === 0) {
+        setError('No brands found.')
       }
+    } catch (err) {
+      setError('Error fetching brands: ' + (err as Error).message)
+    } finally {
+      setLoading(false)
     }
+  }
+
+  useEffect(() => {
     fetchBrands()
   }, [])
 
